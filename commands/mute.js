@@ -19,10 +19,12 @@ module.exports = {
         let target = message.guild.member(message.mentions.users.first() || message.guild.members.cache.get(args[0]));
         if (!message.guild.me.hasPermission("MANAGE_MESSAGES")) return message.channel.send("I do not have the correct permissions to mute.")
         if (!target) return message.reply("Couldn't find user.");
-        let muterole = message.guild.roles.cache.find(roles => roles.name === "Muted")
+        let muterole = message.guild.roles.cache.find(roles => roles.name.toLowerCase() === "muted")
+
         if (target.roles.cache.has(muterole.id)) {
             return message.reply("That user is already muted!")
         }
+        
         if (!muterole) {
             try {
                 muterole = await message.guild.createRole({
