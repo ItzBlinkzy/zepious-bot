@@ -3,6 +3,8 @@ module.exports = {
     name: "kick",
     description: "kick command",
     async execute(message, args, bot) {
+        if (!args.length) return message.reply("No member specified");
+
         if (!message.member.hasPermission("KICK_MEMBERS")) {
             return message.channel.send("You cannot kick people.")
         }
